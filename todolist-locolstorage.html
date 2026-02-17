@@ -12,7 +12,7 @@
     <button onclick="addtodo()">add</button>
     <ul id="todolist"></ul>
     <script>
-        var todos = JSON.parse(window.localStorage.getItem("todo"));
+        var todos = JSON.parse(window.localStorage.getItem("todo")) || []
         genui();
         function addtodo() {
             var todo = document.getElementById("d1").value
@@ -29,11 +29,9 @@
                 var btn = document.createElement("button")
                 btn.innerText = "delete"
                 btn.onclick = function () {
-                    todos.splice(index, 1)
-                    document.getElementById("todolist").appendChild(nli).remove();
-                    document.getElementById("todolist").appendChild(btn).remove();
-
-                    window.localStorage.clear()
+                    // todos.splice(index, 1)
+                    todos = todos.filter((todo, i) => i !== index);
+                    window.localStorage.setItem("todo", JSON.stringify(todos))
                     console.log(todos)
                     window.localStorage.setItem("todo", JSON.stringify(todos))
                     genui();
