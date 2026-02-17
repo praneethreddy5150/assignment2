@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="d1">
+    <button onclick="addtodo()">add</button>
+    <ul id="todolist"></ul>
+    <script>
+        var todos = JSON.parse(window.localStorage.getItem("todo"));
+        genui();
+        function addtodo() {
+            var todo = document.getElementById("d1").value
+            todos.push(todo)
+            window.localStorage.setItem("todo", JSON.stringify(todos));
+            genui();
+        }
+
+        function genui() {
+            document.getElementById("todolist").innerHTML = "";
+            todos.forEach((todo, index) => {
+                var nli = document.createElement("li")
+                nli.innerText = todo
+                var btn = document.createElement("button")
+                btn.innerText = "delete"
+                btn.onclick = function () {
+                    todos.splice(index, 1)
+                    document.getElementById("todolist").appendChild(nli).remove();
+                    document.getElementById("todolist").appendChild(btn).remove();
+
+                    window.localStorage.clear()
+                    console.log(todos)
+                    window.localStorage.setItem("todo", JSON.stringify(todos))
+                    genui();
+                }
+                document.getElementById("todolist").appendChild(nli)
+                document.getElementById("todolist").appendChild(btn)
+            })
+        }
+    </script>
+</body>
+
+</html>
