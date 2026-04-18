@@ -26,8 +26,14 @@
             todos.forEach((todo, index) => {
                 var nli = document.createElement("li")
                 nli.innerText = todo
+                var btn2 = document.createElement("button")
+                btn2.innerText = "incomplete"
+                btn2.onclick = function () {
+                    btn2.innerText = "completed"
+                }
                 var btn = document.createElement("button")
                 btn.innerText = "delete"
+                btn.disabled = "true"
                 btn.onclick = function () {
                     // todos.splice(index, 1)
                     todos = todos.filter((todo, i) => i !== index);
@@ -37,6 +43,7 @@
                     genui();
                 }
                 document.getElementById("todolist").appendChild(nli)
+                document.getElementById("todolist").appendChild(btn2)
                 document.getElementById("todolist").appendChild(btn)
             })
         }
